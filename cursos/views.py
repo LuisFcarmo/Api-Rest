@@ -31,3 +31,4 @@ class AvaliacaoApiView(APIView):
         serializer.save()
         #return data
         return Response(serializer.data, status = status.HTTP_201_CREATED)
+    

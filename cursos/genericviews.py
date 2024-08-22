@@ -48,13 +48,32 @@ class CursoViewSet(viewsets.ModelViewSet):
 
     @action(detail = True, methods = ['get'])
     def avaliacoes(self, request, pk = None):
-        curso = self.get_object()
-        serializer = AvaliacaoSerializer(curso.avaliacoes.all(), many = True)
+        #paginations
+        self.pagination_class.page_size = 1
+        avaliacoes = Avaliacao.objects.filter(curso_id = pk)
+        page = self.paginate_queryset(avaliacoes)
+        
+        if page is not None:
+            serializer = AvaliacaoSerializer(page, many = True)
+            return self.get_paginated_response(serializer.data)
+       
+        serializer = AvaliacaoSerializer(avaliacoes.all(), many = True)
         return Response(serializer.data)
     
-class AvalicaoViewSet(viewsets.ModelViewSet):
-    queryset = Avaliacao.objects.all()
-    serializer_class = AvaliacaoSerializer
+##class AvalicaoViewSet(viewsets.ModelViewSet):
+   ## queryset = Avaliacao.objects.all()
+    ##serializer_class = AvaliacaoSerializer
     
 
 #==================================================================#
+"""
+    view set customizada
+    com mixins customizando quais são os metodos permitidos para serem acessados
+    pelo servidor
+"""
+class AvalicaoViewSet(
+    mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+    viewsets.GenericViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvaliacaoSerializer

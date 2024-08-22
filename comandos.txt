@@ -8,3 +8,16 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 #criar um super usuario
 python3 manage.py createsuperuser
+>>> from rest_framework.authtoken.models import Token
+>>> from django.contrib.auth.models import User
+>>> luis = User.objects.get(id=1)
+>>> tokne = Token.objects.create(user=luis)
+>>> token.key
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/code.py", line 90, in runcode
+    exec(code, self.locals)
+  File "<console>", line 1, in <module>
+NameError: name 'token' is not defined. Did you mean: 'Token'?
+>>> tokne.key
+'2383d66389d1a25f4e9bf78ab6ad0eadb6af828c'
+>>> 

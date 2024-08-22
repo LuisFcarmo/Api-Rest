@@ -15,6 +15,7 @@ class Curso(Base):
     class Meta:
         verbose_name = "Curso"
         verbose_name_plural = "Cursos"
+        ordering = ['id']
         
     def __str__(self) -> str:
         return self.titulo
@@ -30,6 +31,8 @@ class Avaliacao(Base):
         verbose_name = "Avaliação"
         verbose_name_plural = "avliações"
         unique_together = ['email', 'curso']
+        #orderar qual a ordem que os elementos seram serializados 
+        ordering = ['id']
         
     def __str__(self) -> str:
         return f'{self.nome} avaliou o curso {self.curso} com nota {self.avaliacao}'
