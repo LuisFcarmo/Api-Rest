@@ -1,0 +1,10 @@
+#criar projeto
+django-admin startproject project cd project
+#criar o app
+python3 manage.py startapp home
+#criar as migratations
+python3 manage.py makemigrations
+#executar as migrations
+python3 manage.py migrate
+#criar um super usuario
+python3 manage.py createsuperuser
